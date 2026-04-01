@@ -1,0 +1,360 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!129 &1
+PlayerSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 24
+  productGUID: a1b2c3d4e5f67890abcdef1234567890
+  AndroidProfiler: 0
+  AndroidFilterTouchesWhenObscured: 0
+  AndroidEnableSustainedPerformanceMode: 0
+  defaultScreenOrientation: 1
+  targetDevice: 2
+  useOnDemandResources: 0
+  accelerometerFrequency: 60
+  companyName: MapWarsStudio
+  productName: Map Wars - Tactical Conquest
+  defaultIcon: {instanceID: 0}
+  allowFullscreenMode: 1
+  startupSplashScreen: {instanceID: 0}
+  startupSplashScreenBackgroundColor: {r: 0.08, g: 0.08, b: 0.12, a: 1}
+  showUnitySplashScreen: 0
+  showUnitySplashLogo: 1
+  pauseOnStart: 0
+  renderOutsideSafeArea: 0
+  splashScreenStyle: 1
+  virtualRealitySplashScreen: {instanceID: 0}
+  virtualRealitySplashScreenLogo: {instanceID: 0}
+  applicationIdentifier:
+    Android: com.mapwarsstudio.tacticalconquest
+    Standalone: com.mapwarsstudio.tacticalconquest
+    iPhone: com.mapwarsstudio.tacticalconquest
+  buildNumber:
+    Standalone: 0
+    iPhone: 0
+    tvOS: 0
+  AndroidBundleVersionCode: 1
+  AndroidMinSdkVersion: 24
+  AndroidTargetSdkVersion: 34
+  AndroidPreferredInstallLocation: 1
+  AndroidSupportedAspectRatio: 1
+  aotOptions: 
+  stripEngineCode: 1
+  iPhoneStrippingLevel: 0
+  iPhoneScriptCallOptimization: 0
+  ForceInternetPermission: 0
+  ForceSDCardPermission: 0
+  CreateWallpaper: 0
+  APKExpansionFiles: 0
+  keepLoadedShadersAlive: 0
+  StripUnusedMeshComponents: 1
+  VertexChannelCompressionMask: 4054
+  iPhoneSdkVersion: 988
+  iOSTargetOSVersionString: 12.0
+  tvOSSdkVersion: 0
+  tvOSRequireExtendedGameController: 0
+  tvOSTargetOSVersionString: 12.0
+  AndroidScriptingBackend: 1
+  AndroidScriptingBackendName: IL2CPP
+  MetroScriptingBackend: 0
+  MetroScriptingBackendName: 
+  apiCompatibilityLevel: 6
+  apiCompatibilityLevelPerPlatform: {}
+  m_RenderingPath: 1
+  m_MobileRenderingPath: 1
+  metroStackSize: 384
+  metroFinancialData: 0
+  XboxOnePKG: 0
+  XboxOneUpdateKey: 
+  XboxOneSandboxId: 0
+  XboxOneContentId: 
+  XboxOneTitleId: 0
+  XboxOneSCId: 
+  XboxOneGameOsOverridePath: 
+  VideoMemoryForVertexs: 256
+  VideoMemoryForTextures: 256
+  standbyScreenSaverMode: 1
+  VulkanEnableSetSRGBWrite: 0
+  m_ScriptingBackendName: IL2CPP
+  m_IgnoreGraphicsApiWarnings: 0
+  m_BuildTargetGraphicsAPIs:
+  - m_BuildTarget: AndroidPlayer
+    m_APIs: 0b0000000c000000
+    m_Automatic: 0
+  - m_BuildTarget: iOSSupport
+    m_APIs: 10000000
+    m_Automatic: 1
+  - m_BuildTarget: WebGLSupport
+    m_APIs: 0b00000002
+    m_Automatic: 1
+  m_BuildTargetVRSettings: []
+  openGLRequireES31AEP: 0
+  openGLRequireES31: 0
+  openGLRequireES30: 0
+  m_ColorSpace: 1
+  m_GraphicsJobs: 0
+  m_ChunkStreamingCompression: 1
+  m_LightmapStreamingEnabled: 0
+  m_FrameCountOnLoadingScreen: -1
+  m_UseAudioContextV2: 1
+  m_EnableHdpiMode: 1
+  resolutionDialogBanner: 0
+  iPhoneUseCustomAppManifestBehavior: 0
+  iPhoneUseCustomEntitlementsFileBehavior: 0
+  iPhoneCustomEntitlementsFile: 
+  iOSLaunchScreenType: 0
+  iOSLaunchScreenPortraitAspectRatio: 0
+  iOSLaunchScreenLandscapeAspectRatio: 0
+  iOSUseLaunchScreenStoryboard: 0
+  iOSLaunchScreenCustomStoryboardPath: 
+  iOSLaunchScreeniPadType: 0
+  iOSLaunchScreeniPadPortraitAspectRatio: 0
+  iOSLaunchScreeniPadLandscapeAspectRatio: 0
+  iOSUseUserSettingsBundle: 0
+  iOSUseInfoPlistEncryptionKey: 0
+  iOSUseBackgroundAudio: 0
+  appleEnableAutomaticSigning: 0
+  iOSRequireARKitSupport: 0
+  appleDeveloperTeamID: 
+  appleEnableProMotion: 1
+  metalAPIValidation: 0
+  AndroidValidateUnityActivity: 0
+  AndroidTVCompatibility: 0
+  AndroidIsGame: 1
+  AndroidMinifyDebug: 0
+  AndroidMinifyRelease: 1
+  AndroidEnableGooglePlaySupport: 1
+  AndroidCreateSymbols: 0
+  useCustomKeystore: 0
+  m_AndroidKeystoreName: 
+  m_AndroidKeystorePass: 
+  m_AndroidKeyAliasName: 
+  m_AndroidKeyAliasPass: 
+  AndroidSplashScreenScale: 0
+  AndroidUseCustomSplashScreen: 0
+  AndroidUseMainAsLauncher: 1
+  AndroidSupportedAspectRatioName: 1
+  AndroidUseCustomKeystore: 0
+  AndroidLogcatTags: 0
+  AndroidUseAPKExpansionFiles: 0
+  AndroidValidateAppName: 0
+  AndroidTargetArchitectures: 5
+  AndroidSplashScreen: {instanceID: 0}
+  AndroidScriptingBackendName: IL2CPP
+  AndroidGradleBuildSystem: 1
+  AndroidGradleVersion: 7.1.1
+  AndroidExportGradleProject: 0
+  AndroidExportXcodeProject: 0
+  AndroidCreateProjectZip: 0
+  AndroidTargetDevice: 0
+  AndroidMinInstallMode: 0
+  AndroidSupportedInstallModes: 0
+  AndroidDetectDayDream: 0
+  AndroidExtractNativePluginsFromProject: 0
+  AndroidSyncJavaProject: 0
+  AndroidGradleCompletionTimeout: 300
+  AndroidGradleExecutorTimeout: 60
+  AndroidJvmMemory: 512
+  AndroidMonoGradleTemplates: 0
+  AndroidEnableJetifier: 1
+  AndroidEnableR8: 0
+  m_AndroidBuildSystem: 1
+  AndroidIAPUseCustomStoreTarget: 0
+  AndroidStoreTarget: 1
+  iOSInstallPostProcessorScript: 
+  iOSRunReleaseAsDebug: 0
+  iOSLogObjCExceptions: 0
+  iOSAlwaysRunAsDebug: 0
+  iOSEnableDeviceMotion: 0
+  enableGraphicsJobs: 0
+  useGPUInstancing: 1
+  useSRPInstancing: 1
+  VulkanEnableSWCommandBuffer: 0
+  enableMetalGPUProfiling: 0
+  vulkanEnablePreTransform: 0
+  vulkanEnableLateAcquireNextImage: 0
+  vulkanEnableCommandBufferRecycling: 0
+  m_ScreenOrientation: 1
+  AndroidUseGameActivity: 0
+  iOSUseGameActivity: 0
+  AndroidTextInputSupport: 0
+  tvOSEnableStoreKit: 0
+  tvOSSupportStoreKit: 0
+  tvOSRequireExtendedGameController: 0
+  iOSInAppPurchaseRunLoopManagement: 0
+  AndroidMinifyWithR8: 1
+  AndroidEnableMDM: 0
+  iOSUseCustomAppDelegate: 0
+  tvOSCustomAppDelegate: 
+  iOSUseCustomMainNibFile: 0
+  tvOSUseCustomMainNibFile: 0
+  tvOSUseCustomLaunchStoryboard: 0
+  iOSEnableAutomaticSigning: 0
+  iOSAllowAutomaticSigning: 0
+  iOSAllowJIT: 0
+  iOSAllowUnsignedExecutables: 0
+  iOSAllowDeepLink: 0
+  iOSAllowJavaScript: 0
+  iOSAllowXcodeAutoSign: 0
+  iOSAllowDebugging: 0
+  appleEnableAutomaticSigning: 0
+  AndroidEnableProfiler: 0
+  AndroidForceInternetPermission: 1
+  AndroidForceSDCardPermission: 1
+  AndroidBLockTouchEvents: 0
+  AndroidEnableSustainedPerformanceMode: 0
+  AndroidEnableVTuneProfiling: 0
+  AndroidEnableMemoryTracking: 0
+  AndroidEnableMallocStatistics: 0
+  AndroidEnableEventProfiler: 0
+  AndroidEnableGPUProfiling: 0
+  AndroidEnableNativeProfiling: 0
+  AndroidFilterTouchesWhenObscured: 0
+  AndroidRequireDeepSleep: 0
+  AndroidRequireVRMode: 0
+  AndroidAllowBackgroundAudio: 0
+  iOSAllowActivityContinuation: 0
+  AndroidOptionalPermissions: 0
+  AndroidAllowOpenGLES: 1
+  AndroidAllowVulkan: 1
+  AndroidAllowMetal: 0
+  AndroidWebViewBurstErrors: 0
+  iOSLaunchScreenName: 
+  iOSLaunchScreenImages: []
+  tvOSLaunchScreenName: 
+  tvOSLaunchScreenImages: []
+  iOSPreferredScreenScales: 3
+  iOSAdditionalSafeAreaInsets: 0
+  iOSExtraPlistKeys: []
+  iOSExtraPlistEntries: {}
+  iOS plist key additions: 
+  iOS plist value additions: {}
+  tvOSExtraPlistKeys: []
+  tvOSExtraPlistEntries: {}
+  iOSMinOSVersion: 12.0
+  tvOSMinOSVersion: 12.0
+  AndroidAdditionalStrippingFlags: {}
+  AndroidTargetGraphicsAPI: 2
+  AndroidMinimumTouchInputChannels: 1
+  AndroidMaximumTouchInputChannels: 10
+  HolographicPassthroughSupported: 0
+  scriptRuntimeVersion: 0
+  scriptBackend: IL2CPP
+  incrementalIl2cppBuild: 0
+  scriptingDefineSymbols: {}
+  additionalIl2CppArgs: 
+  scriptingDefineSymbolsDictionary: {}
+  fullIl2CppCleanBuild: 0
+  useNdk: 0
+  AndroidNdk: 
+  AndroidNdkRoot: 
+  AndroidNdkVersion: 
+  AndroidBuildApkPerCpuArch: 0
+  AndroidNdkAPILevel: 0
+  AndroidAdditionalGradleArgs: 
+  AndroidAdditionalGradleJvmArgs: 
+  AndroidGradleCompileSdkVersion: 34
+  AndroidGradleTargetApiLevel: 34
+  AndroidGradleMinSdkVersion: 24
+  AndroidEnableR8: 1
+  AndroidR8Jar: 
+  AndroidR8Shrinker: 
+  AndroidR8ShrinkerVersion: 
+  AndroidManifestTemplate: 
+  iOSXcodeBuildConfig: Release
+  iOSXcodeBuildId: 
+  iOSXcodeOrgId: 
+  iOSXcodeTeamId: 
+  iOSManualProvisioningProfileID: 
+  iOSManualSigningAppleTeamId: 
+  iOSBundleIdentifier: com.mapwarsstudio.tacticalconquest
+  iOSBundleVersion: 1.0
+  iOSSimulatorArchitecture: 0
+  iOSDeviceArchitecture: 0
+  iOSAutomaticSigning: 0
+  tvOSSimulatorArchitecture: 0
+  tvOSDeviceArchitecture: 0
+  tvOSBundleIdentifier: com.mapwarsstudio.tacticalconquest
+  tvOSBundleVersion: 1.0
+  tvOSAutomaticSigning: 0
+  AppleTVManualProvisioningProfileID: 
+  AppleTVManualSigningAppleTeamId: 
+  AppleTVBundleSigningType: 0
+  iOSEnableCustomSigning: 0
+  AppleTVEnableCustomSigning: 0
+  iOSUseCustomBootstrapper: 0
+  tvOSUseCustomBootstrapper: 0
+  iOSCustomBootstrapper: 
+  tvOSCustomBootstrapper: 
+  iOSXcodeCustomBuildId: 
+  tvOSXcodeCustomBuildId: 
+  iOSAllowIL2CPP: 1
+  tvOSAllowIL2CPP: 1
+  useCustomMainClass: 0
+  AndroidCustomMainClass: 
+  iOSMainClass: 
+  tvOSMainClass: 
+  useCustomGradleTemplate: 0
+  AndroidCustomGradleTemplate: 
+  AndroidGradleCustomProperties: 
+  AndroidGradleCustomDebugProperties: 
+  AndroidGradleTemplatesToApply: 0
+  AndroidCustomProguardFile: 
+  iOSRenderExtraFrameOnPause: 0
+  iosAppInBackgroundBehavior: 0
+  iOSSplashScreen: {instanceID: 0}
+  tvOSSplashScreen: {instanceID: 0}
+  tvOSHighDynamicRange: 0
+  displayResolutionDialog: 0
+  m_HideUnityLogo: 1
+  mobileRenderingPath: 1
+  iOSUseCustomAppleIDAndSigning: 0
+  iOSAppleTeamID: 
+  iOSSigningRequireAutomaticSigning: 0
+  tvOSUseCustomAppleIDAndSigning: 0
+  tvOSAppleTeamID: 
+  tvOSSigningRequireAutomaticSigning: 0
+  androidUseCustomKeystore: 0
+  AndroidSdkToolsVersion: 
+  AndroidKeytoolName: 
+  AndroidKeystoreName: 
+  AndroidKeyaliasName: 
+  AndroidKeyAliasPass: 
+  AndroidKeystorePass: 
+  AndroidKeytoolPass: 
+  AndroidGradleTemplate: 0
+  iOSUseCustomBootstrapper: 0
+  tvOSUseCustomBootstrapper: 0
+  AndroidUseCustomBootstrapper: 0
+  AndroidMinifyWithR8Version: 
+  CloudServicesEnabled:
+    UNet: 0
+    UnityAnalytics: 0
+    UnityPurchasing: 0
+    UnityAds: 0
+  luminSdkVersion: 1.0.0
+  luminSdkReleaseVersion: 1.0.0
+  luminSdkPath: 
+  luminCertPath: 
+  luminPrivKeyPath: 
+  luminCert: []
+  luminPrivKey: []
+  luminPassphrase: 
+  visionOSBundleIdentifier: 
+  visionOSBundleVersion: 
+  visionOSMinimumOSVersion: 
+  visionOSArchitecture: 0
+  visionOSSimulatorArchitecture: 0
+  visionOSAutomaticSigning: 0
+  visionOSManualProvisioningProfileID: 
+  visionOSManualSigningAppleTeamId: 
+  visionOSUseCustomBootstrapper: 0
+  visionOSCustomBootstrapper: 
+  visionOSMainClass: 
+  visionOSXcodeBuildConfig: Release
+  visionOSXcodeBuildId: 
+  visionOSXcodeOrgId: 
+  visionOSXcodeTeamId: 
+  visionOSBundleSigningType: 0
+  visionOSUseCustomSigning: 0
+  visionOSXcodeCustomBuildId: 

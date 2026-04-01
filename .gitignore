@@ -1,0 +1,100 @@
+# ===========================
+# Unity generated files
+# ===========================
+[Ll]ibrary/
+[Ll]ibrary/*
+[Aa]ssets/[Aa]ssets/*
+[Aa]ssets/Plugins/.meta
+[Aa]ssets/Plugins/Android.meta
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+[Tt]emp/
+[Cc]ache/
+[Oo]bj/
+
+# ===========================
+# VS / Rider / VSCode
+# ===========================
+.vs/
+.idea/
+*.sln
+*.csproj
+*.unityproj
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# ===========================
+# OS generated files
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ===========================
+# Unity specifics
+# ===========================
+[Aa]ssets/AssetStoreTools*
+[Ee]xportedObj/
+*.pidb.meta
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+
+# ===========================
+# Android / iOS builds
+# ===========================
+*.apk
+*.aab
+*.keystore
+!*.keystore.meta
+[Aa]ndroid/
+[iI]OS/
+
+# ===========================
+# Build results
+# ===========================
+[Aa]ssets/StreamingAssets/aa.meta
+[Aa]ssets/StreamingAssets/*.meta
+
+# ===========================
+# Packages
+# ===========================
+node_modules/
+
+# ===========================
+# Auto-generated
+# ===========================
+*.cginc.meta
+*.hlsl.meta
+*.compute.meta
+*.shader.meta
+
+# ===========================
+# Coverage
+# ===========================
+coverage/
+*.coverage

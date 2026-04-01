@@ -1,0 +1,191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!30 &1
+GraphicsSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 14
+  m_Deferred:
+    m_Mode: 1
+    m_Path: 
+  m_ForceHiddenShaders: []
+  m_AdditionalShaderPaths: []
+  m_ShaderSettings:
+    m_TransparentSortSettings:
+      m_Mode: 0
+      m_AutoSort: 1
+  m_BuildTargetShaderSettings:
+  - m_Platform: 9
+    m_StandardShaderQuality: 2
+    m_StandardShaderQualityLevel: 0
+    m_StandardShaderBuildTargetQualityLevel: 2
+    m_PreferredShaderMode: 2
+  - m_Platform: 13
+    m_StandardShaderQuality: 2
+    m_StandardShaderQualityLevel: 0
+    m_StandardShaderBuildTargetQualityLevel: 2
+    m_PreferredShaderMode: 2
+  m_UseDeferredScreenSpaceShadows: 0
+  m_UseGBufferForShadowMask: 0
+  m_LimitScreenSpaceShadows: 0
+  m_ExplicitGBuffersMask: -1
+  m_AllowTransparentShadowOverride: 0
+  m_AlwaysUpdateScreenSpaceShadows: 0
+  m_EnableDeferredReflections: 0
+  m_EnableScreenSpaceShadows: 0
+  m_EnableDecals: 0
+  m_EnableAsyncCompute: 0
+  m_EnableGPUDrawing: 0
+  m_EnableGPUSkinning: 0
+  m_EnableAutoHDR: 0
+  m_PreferredScriptingBackend: 0
+  m_PreferredGPUProcessMode: 0
+  m_BuildTargetGraphicsJobsMode:
+  - m_BuildTarget: MetroPlayer
+    m_GraphicsJobsMode: 0
+  m_BuildTargetGraphicsAPIs:
+  - m_BuildTarget: iOSSupport
+    m_APIs: 10000000
+    m_Automatic: 1
+  - m_BuildTarget: AndroidPlayer
+    m_APIs: 0b0000000c000000
+    m_Automatic: 0
+  m_BuildTargetVRSettings: []
+  m_DefaultShaderChunkSizeInMB: 16
+  m_LightmapSettings:
+    m_Resolution: 2
+    m_LastAppliedResolution: 0
+    m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherRayCount: 256
+    m_EnlightenRuntimeEnvironment: 0
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightProbeStreamingDatas: []
+  m_PrefilterMode: 0
+  m_PrefilterEnvMapRotation: 0
+  m_PrefilterEnvMapSize: 256
+  m_PrefilterLightmaps: 0
+  m_BakeResolution: 40
+  m_TextureSize: 1024
+  m_TextureCompression: 1
+  m_AO: 0
+  m_AOMaxDistance: 1
+  m_CompAOExponent: 1
+  m_CompAOExponentDirect: 0
+  m_ExtractAO: 0
+  m_SkyboxMaterial: {fileID: 0}
+  m_HDROnly: 0
+  m_SupportsHDR: 0
+  m_UseHDR10DisplayMode: 0
+  m_UseDitherMaskForAlphaBlendedShadows: 0
+  m_UseShadowRim: 0
+  m_ScreenSpaceShadows: 0
+  m_ShadowCascadeResolution: 0.5
+  m_ShadowDistance: 50
+  m_ShadowCascade2Split: 0.333
+  m_ShadowCascade4Split: {x: 0.067, y: 0.2, z: 0.467}
+  m_ShadowmaskMode: 0
+  m_SubtractiveShadowColor: {r: 0.24, g: 0.24, b: 0.24, a: 1}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_ProbeSettings:
+    probeLayers:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    m_ShowProbeVisualization: 0
+    m_ProbeVolumeMode: 0
+  m_ScriptableMigration: 0
+  m_ScriptableRendererData: []
+  m_UseLegacyProbeCount: 0
+  m_ShowLightmappings: 0
+  m_GPUResidentDrawerMode: 0
+  m_ShadowCascades: 0
+  m_ShadowDrawDistance: 0
+  m_ShadowNearPlaneOffset: 0
+  m_DynamicBatching: 1
+  m_StaticBatching: 0
+  m_GISettings:
+    m_GameObjectNames: []
+    m_ProbeVolumes: []
+    m_SpecularLights: 1
+    m_SpecularReflections: 1
+    m_ContributeGI: 1
+    m_AutoBake: 1
+    m_AutoRealtime: 0
+    m_LightmapSize: 1024
+    m_LightmapBakeMode: 1
+    m_BakeResolution: 40
+    m_Padding: 2
+    m_LightmapCompression: 3
+    m_AtlasSize: 1024
+    m_LightmapSnapshotPadding: 0
+    m_ReflectionCompression: 1
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_LightProbeSampleCountMultiplier: 4
+    m_UseShadowmask: 1
+  m_LightmapEditorSettings:
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_TextureWidth: 1024
+    m_TextureHeight: 1024
+    m_TextureCompression: 1
+    m_TextureCompressionQuality: 50
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAO: 0
+    m_SkyboxSampleCount: 5
+    m_ProbeSettings:
+      probeLayers:
+        serializedVersion: 2
+        m_Bits: 4294967295
+      m_ShowProbeVisualization: 0
+      m_ProbeVolumeMode: 0
+    m_TextureSize: 1024
+    m_TextureCompression: 1
+    m_ReflectionCompression: 1
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_LightProbeSampleCountMultiplier: 4
+  m_UseShadowmask: 1
+  m_SupportedLightingModes:
+  - 0
+  m_NormalMapSpace: 0
+  m_LightmapHDRPreservation: 0
+  m_UseLegacyLightmapPacking: 0
+  m_StandardExportQuality: 0
+  m_AutoGenerateGI: 1
+  m_UseSRPBatcher: 1
+  m_SupportGPUInstancing: 1
+  m_EnableLOD: 0
+  m_UseShadowCasterCulling: 0
+  m_EnableDitheredCrossFade: 0
+  m_EnableExposedProfiler: 0
+  m_DiscardTranslationAdaptivityShadowUpdate: 0
+  m_IntensityScale: 1
+  m_AlbedoBoost: 1
+  m_LightmapSizeFixed: 0
+  m_LightmapSize: 1024
+  m_UseRealtimeNormalmap: 0
+  m_ShadowUpdateThreshold: 0
+  m_ScriptableBakeQuality: 0
+  m_ScriptableBakeTimeout: 300
