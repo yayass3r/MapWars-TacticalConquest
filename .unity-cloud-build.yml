@@ -1,0 +1,50 @@
+# Unity Cloud Build Configuration
+# Documentation: https://docs.unity3d.com/Manual/UnityCloudBuild.html
+
+# Project identifier
+projectName: Map Wars - Tactical Conquest
+organizationId: YOUR_ORG_ID
+projectId: YOUR_PROJECT_ID
+
+# Target platforms
+targets:
+  android:
+    # Build configuration
+    enabled: true
+    buildMethod: MapWars.Editor.BuildScript.BuildAndroid
+    autoBuild: false
+
+    # Unity version
+    unityVersion: 2022.3.20f1
+
+    # Build settings
+    buildTargets:
+      - Android
+
+    # Android specific settings
+    androidSettings:
+      keystoreName: ""
+      keystorePass: ""
+      keyaliasName: ""
+      keyaliasPass: ""
+      bundleIdentifier: com.mapwarsstudio.tacticalconquest
+      minSdkVersion: 24
+      targetSdkVersion: 34
+      androidBuildSystem: Gradle
+      architecture: ARM64
+      scriptingBackend: IL2CPP
+      useAPKExpansionFiles: false
+
+    # Compression
+    compression:
+      useLZ4: true
+      lz4Compression: true
+
+    # Code stripping
+    stripping:
+      managedStrippingLevel: High
+      useR8: true
+
+    # Environment variables
+    env:
+      - UNITY_VERSION=2022.3.20f1

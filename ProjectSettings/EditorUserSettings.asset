@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!159 &1
+EditorUserSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 4
+  m_ExcludedTargetPlatforms: []
+  m_LastCompletedTarget: 13
+  m_LastBuildTarget: 13
+  m_SerializationMode: 2
+  m_SetupPerformedInPipeline: 1
+  m_AssetPipelineMode: 1
+  m_EnterPlayModeOptionsEnabled: 0
+  m_EnterPlayModeOptions: {}
+  m_ShowSuggestedPackageUpdates: 0
+  m_ClearCacheOnDomainReload: 0
+  m_ShowSuggestedAssetStoreUpdates: 0
+  m_TimelineMode: 1
+  m_ShowTutorialHint: 0
+  m_GICacheCapacityGB: 10
+  m_GICacheForcedCachePath: 
+  m_AssetStoreToken: 
+  m_DiscreteCacheCapacityGB: 10
+  m_DiscreteCacheForcedCachePath: 
+  m_ShowBigPackageUpdates: 1
+  m_GameViewGizmos: 0
+  m_ColliderGizmos: 0
+  m_ShowStatusBar: 1
+  m_AllowAlwaysRefresh: 0
+  m_AutoRefresh: 1
+  m_ColorSpace: 1
+  m_ShowMaterialUpdateFlow: 0
+  m_UseGICacheForBuilds: 0
+  m_StandardShaderBuildTarget: 2
+  m_SearchResultsBatchingThreshold: 200
+  m_UISettings:
+    m_ProBuilderPrimaryColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+    m_ProBuilderSecondaryColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    m_ProBuilderHandleColor: {r: 1, g: 1, b: 1, a: 1}
+    m_ProBuilderFaceColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    m_ProBuilderEdgeColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+    m_ProBuilderHiddenEdgeColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+    m_ProBuilderVerticesColor: {r: 0, g: 1, b: 0, a: 1}
+    m_ProBuilderLightColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    m_ProBuilderGhostColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.3}
+  m_ProBuilderSettings:
+    m_ShowGrid: 1
+    m_SnapToGrid: 1
+    m_SnapEnabled: 1
+    m_GridSizeMode: 1
+    m_SnapAngle: 15
+  m_TemplateUtility:
+    m_RecentlyScannedTemplates: []
+  m_VCSIntegration: 0
+  m_WorkspaceMode: 0
+  m_AssemblyStripping: 0
+  m_ProfilingFlags: 0
+  m_LastCloudBuildTarget: 13
+  m_CloudBuildTargets: []
+  m_CloudBuildHash: 
+  m_EnableTextureStreamingInEditMode: 1
+  m_EnableTextureStreamingInPlayMode: 1
+  m_AsyncShaderCompilation: 1
