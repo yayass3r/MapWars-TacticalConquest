@@ -31,25 +31,9 @@ jobs:
           restore-keys: |
             unity-library-
 
-      - name: Generate ALF and Activate Unity
-        run: |
-          # Pull Unity image and generate ALF for this machine
-          docker pull unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
-          docker run --rm -v /tmp:/output unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
-            bash -c '/opt/Unity/Editor/Unity -batchmode -nographics -createManualActivationFile -logFile /dev/stdout -quit 2>&1 || true; find / -name "*.alf" -exec cp {} /output/Unity_v2.alf \;'
-          
-          # Read the ALF for reference
-          echo "=== ALF Machine Bindings ==="
-          if [ -f /tmp/Unity_v2.alf ]; then
-            cat /tmp/Unity_v2.alf | head -5
-          else
-            echo "WARNING: No ALF generated!"
-          fi
-
       - name: Build Unity Project
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
@@ -81,5 +65,4 @@ jobs:
           name: build-logs
           path: |
             /home/runner/work/**/*.log
-            /tmp/**/*.log
           if-no-files-found: warn
