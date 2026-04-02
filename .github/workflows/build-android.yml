@@ -56,8 +56,10 @@ jobs:
                 exit 1
               fi
               
-              # Try activation with env vars (Unity reads them)
-              "$UNITY" -batchmode -nographics -quit -logFile /tmp/unity.log 2>&1 || true
+              # Activate with CLI args (Unity uses these for login)
+              "$UNITY" -batchmode -nographics -quit \
+                -username "$UNITY_EMAIL" -password "$UNITY_PASSWORD" \
+                -logFile /tmp/unity.log 2>&1 || true
               echo "=== Activation log ==="
               cat /tmp/unity.log 2>/dev/null | tail -50 || true
               
