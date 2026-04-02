@@ -31,11 +31,17 @@ jobs:
           restore-keys: |
             unity-lib-
 
-      - name: Build Unity Project
-        uses: game-ci/unity-builder@v4
+      - name: Activate Unity License
+        uses: game-ci/unity-activate@v2
+        with:
+          targetPlatform: Android
+          unityVersion: 2022.3.72f1
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+
+      - name: Build Unity Project
+        uses: game-ci/unity-builder@v4
         with:
           targetPlatform: Android
           projectPath: .
