@@ -31,40 +31,50 @@ jobs:
           restore-keys: |
             unity-lib-
 
-      - name: Activate Unity License
+      - name: Activate Unity License via Docker
         run: |
           docker pull unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
-          mkdir -p /tmp/unity-license
+          mkdir -p /tmp/unity-lic
           docker run --rm \
             -e UNITY_EMAIL="${{ secrets.UNITY_EMAIL }}" \
             -e UNITY_PASSWORD="${{ secrets.UNITY_PASSWORD }}" \
-            -v /tmp/unity-license:/license \
+            -v /tmp/unity-lic:/output \
             unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
             bash -c '
               UNITY=$(find / -name "Unity" -type f -executable 2>/dev/null | grep -E "Editor/Unity$" | head -1)
               echo "Unity path: $UNITY"
-              if [ -z "$UNITY" ]; then
-                echo "ERROR: Unity executable not found"
-                exit 1
-              fi
               "$UNITY" -batchmode -nographics -quit \
-                -username "$UNITY_EMAIL" -password "$UNITY_PASSWORD" \
+                -username "${UNITY_EMAIL}" -password "${UNITY_PASSWORD}" \
                 -logFile /dev/stdout 2>&1 || true
-              echo "=== Looking for license files ==="
-              find /root/.local/share/unity3d -name "*.ulf" 2>/dev/null
-              find /root/.config/unity3d -name "*.ulf" 2>/dev/null
-              # Copy all license-related files
-              cp -r /root/.local/share/unity3d/ /license/ 2>/dev/null || true
-              cp -r /root/.config/unity3d/ /license/ 2>/dev/null || true
-              find /root -name "*.ulf" -exec cp {} /license/ 2>/dev/null || true
-              ls -laR /license/ 2>/dev/null
-              echo "=== Done ==="
+              # Copy license files to output
+              find /root/.local/share/unity3d -type f -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
+              find /root/.config/unity3d -type f -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
+              find /root -maxdepth 5 -type f -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
+              echo "=== License files ==="
+              ls -la /output/ 2>/dev/null || echo "No license files found"
+              # Also copy the entire Unity license directory
+              if [ -d /root/.local/share/unity3d ]; then
+                cp -r /root/.local/share/unity3d /output/unity3d_share 2>/dev/null || true
+              fi
             '
+          # Find the ULF file
+          echo "=== Checking output ==="
+          ls -la /tmp/unity-lic/
+          ULF_FILE=$(find /tmp/unity-lic -name "*.ulf" -type f 2>/dev/null | head -1)
+          if [ -n "$ULF_FILE" ]; then
+            echo "Found ULF: $ULF_FILE"
+            echo "ULF_CONTENT<<EOF" >> $GITHUB_ENV
+            cat "$ULF_FILE" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+            echo "License saved to UNITY_LICENSE env var"
+          else
+            echo "WARNING: No ULF file found"
+          fi
 
       - name: Build Unity Project
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_LICENSE: ${{ env.ULF_CONTENT }}
         with:
           targetPlatform: Android
           projectPath: .
