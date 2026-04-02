@@ -46,29 +46,33 @@ jobs:
               "$UNITY" -batchmode -nographics -quit \
                 -username "${UNITY_EMAIL}" -password "${UNITY_PASSWORD}" \
                 -logFile /dev/stdout 2>&1 || true
-              # Copy license files to output
-              find /root/.local/share/unity3d -type f -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
-              find /root/.config/unity3d -type f -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
-              find /root -maxdepth 5 -type f -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
-              echo "=== License files ==="
-              ls -la /output/ 2>/dev/null || echo "No license files found"
-              # Also copy the entire Unity license directory
-              if [ -d /root/.local/share/unity3d ]; then
-                cp -r /root/.local/share/unity3d /output/unity3d_share 2>/dev/null || true
-              fi
+              # Copy ALL Unity license/config/cache directories
+              cp -r /root/.local/share/unity3d /output/local_share 2>/dev/null || true
+              cp -r /root/.config/unity3d /output/config 2>/dev/null || true
+              cp -r /root/.cache/unity3d /output/cache 2>/dev/null || true
+              # Also check for ULF files anywhere
+              find /root -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
+              # Check keyrings
+              cp -r /root/.local/share/keyrings /output/keyrings 2>/dev/null || true
+              # Check for any license-related files
+              find /root -name "*license*" -o -name "*License*" -o -name "*activation*" 2>/dev/null | while read f; do
+                cp "$f" /output/ 2>/dev/null || true
+              done
+              echo "=== Files saved ==="
+              find /output -type f | head -30
             '
-          # Find the ULF file
-          echo "=== Checking output ==="
-          ls -la /tmp/unity-lic/
-          ULF_FILE=$(find /tmp/unity-lic -name "*.ulf" -type f 2>/dev/null | head -1)
-          if [ -n "$ULF_FILE" ]; then
-            echo "Found ULF: $ULF_FILE"
+          echo "=== Host files ==="
+          find /tmp/unity-lic -type f | head -30
+          # Find any ULF file
+          ULF=$(find /tmp/unity-lic -name "*.ulf" -type f 2>/dev/null | head -1)
+          if [ -n "$ULF" ]; then
+            echo "Found ULF file"
             echo "ULF_CONTENT<<EOF" >> $GITHUB_ENV
-            cat "$ULF_FILE" >> $GITHUB_ENV
+            cat "$ULF" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
-            echo "License saved to UNITY_LICENSE env var"
           else
-            echo "WARNING: No ULF file found"
+            echo "No ULF found, listing all files:"
+            find /tmp/unity-lic -type f
           fi
 
       - name: Build Unity Project
