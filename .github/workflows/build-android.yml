@@ -31,48 +31,51 @@ jobs:
           restore-keys: |
             unity-lib-
 
-      - name: Activate Unity License via Docker
+      - name: Activate Unity License
         run: |
           docker pull unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
           mkdir -p /tmp/unity-lic
           docker run --rm \
-            -e UNITY_EMAIL="${{ secrets.UNITY_EMAIL }}" \
-            -e UNITY_PASSWORD="${{ secrets.UNITY_PASSWORD }}" \
+            -e UNITY_EMAIL \
+            -e UNITY_PASSWORD \
             -v /tmp/unity-lic:/output \
             unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
             bash -c '
+              echo "Email length: ${#UNITY_EMAIL}"
+              echo "Password length: ${#UNITY_PASSWORD}"
+              echo "Password first char: ${UNITY_PASSWORD:0:1}"
+              
               UNITY=$(find / -name "Unity" -type f -executable 2>/dev/null | grep -E "Editor/Unity$" | head -1)
               echo "Unity path: $UNITY"
-              "$UNITY" -batchmode -nographics -quit \
-                -username "${UNITY_EMAIL}" -password "${UNITY_PASSWORD}" \
-                -logFile /dev/stdout 2>&1 || true
-              # Copy ALL Unity license/config/cache directories
+              
+              if [ -z "$UNITY" ]; then
+                echo "ERROR: Unity not found"
+                exit 1
+              fi
+              
+              # Try activation with env vars (Unity reads them)
+              "$UNITY" -batchmode -nographics -quit -logFile /tmp/unity.log 2>&1 || true
+              echo "=== Activation log ==="
+              cat /tmp/unity.log 2>/dev/null | tail -50 || true
+              
+              # Copy all license data
               cp -r /root/.local/share/unity3d /output/local_share 2>/dev/null || true
               cp -r /root/.config/unity3d /output/config 2>/dev/null || true
               cp -r /root/.cache/unity3d /output/cache 2>/dev/null || true
-              # Also check for ULF files anywhere
               find /root -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
-              # Check keyrings
-              cp -r /root/.local/share/keyrings /output/keyrings 2>/dev/null || true
-              # Check for any license-related files
-              find /root -name "*license*" -o -name "*License*" -o -name "*activation*" 2>/dev/null | while read f; do
-                cp "$f" /output/ 2>/dev/null || true
-              done
-              echo "=== Files saved ==="
-              find /output -type f | head -30
+              find /output -type f 2>/dev/null | head -20
             '
           echo "=== Host files ==="
-          find /tmp/unity-lic -type f | head -30
-          # Find any ULF file
+          find /tmp/unity-lic -type f 2>/dev/null | head -20
+          # Check for ULF
           ULF=$(find /tmp/unity-lic -name "*.ulf" -type f 2>/dev/null | head -1)
           if [ -n "$ULF" ]; then
-            echo "Found ULF file"
+            echo "ULF found: $ULF"
             echo "ULF_CONTENT<<EOF" >> $GITHUB_ENV
             cat "$ULF" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
           else
-            echo "No ULF found, listing all files:"
-            find /tmp/unity-lic -type f
+            echo "No ULF file found on host"
           fi
 
       - name: Build Unity Project
