@@ -1,0 +1,60 @@
+name: Generate Unity Activation Request
+
+# Use this workflow to generate an activation request file (.alf) for manual license activation.
+# Steps:
+# 1. Run this workflow
+# 2. Download the 'Unity_v2.x.alf' artifact
+# 3. Visit https://license.unity3d.com/manual
+# 4. Upload the .alf file
+# 5. Log in with your Unity account (with 2FA)
+# 6. Select "Unity Personal" and download the .ulf license file
+# 7. Go to repo Settings > Secrets and variables > Actions
+# 8. Update the 'UNITY_LICENSE' secret with the .ulf file contents
+# 9. Run the "Build Android APK" workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-alf:
+    name: Generate Activation File
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Get Unity Activation File
+        run: |
+          # Pull the Unity base image
+          docker pull unityci/editor:ubuntu-2022.3.72f1-base-3
+          
+          # Generate the activation request file
+          docker run --rm unityci/editor:ubuntu-2022.3.72f1-base-3 \
+            /opt/Unity/Editor/Unity \
+            -batchmode \
+            -nographics \
+            -createManualActivationFile \
+            -logFile /dev/stdout \
+            -quit || true
+          
+          # Find and copy the .alf file
+          find / -name "*.alf" -not -path "/proc/*" -not -path "/sys/*" 2>/dev/null | head -5
+          ALF_FILE=$(find / -name "*.alf" -not -path "/proc/*" -not -path "/sys/*" 2>/dev/null | head -1)
+          
+          if [ -n "$ALF_FILE" ]; then
+            echo "Found ALF file: $ALF_FILE"
+            cp "$ALF_FILE" /tmp/Unity_v2.alf
+            echo "ALF_FILE=/tmp/Unity_v2.alf" >> $GITHUB_ENV
+          else
+            echo "No .alf file found. Trying alternative method..."
+            # Alternative: create minimal alf from Unity
+            docker run --rm -v /tmp:/output unityci/editor:ubuntu-2022.3.72f1-base-3 \
+              bash -c "/opt/Unity/Editor/Unity -batchmode -nographics -createManualActivationFile -logFile /dev/stdout -quit 2>&1 || true; find / -name '*.alf' -exec cp {} /output/Unity_v2.alf \;"
+          fi
+
+      - name: Upload Activation File
+        uses: actions/upload-artifact@v4
+        with:
+          name: UnityActivationFile
+          path: /tmp/Unity_v2.alf
+          if-no-files-found: warn
+          retention-days: 30
