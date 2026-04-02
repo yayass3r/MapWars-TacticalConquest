@@ -25,7 +25,7 @@ jobs:
 
       - name: Cache Unity Library
         uses: actions/cache@v4
-        with:
+        witj:
           path: Library
           key: unity-lib-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
@@ -56,9 +56,13 @@ jobs:
                 exit 1
               fi
               
-              # Activate with CLI args (Unity uses these for login)
+              # URL-encode password for API compatibility
+              ENCODED_PASS=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$UNITY_PASSWORD', safe=''))")
+              echo "Encoded password length: ${#ENCODED_PASS}"
+              
+              # Activate with CLI args
               "$UNITY" -batchmode -nographics -quit \
-                -username "$UNITY_EMAIL" -password "$UNITY_PASSWORD" \
+                -username "$UNITY_EMAIL" -password "$ENCODED_PASS" \
                 -logFile /tmp/unity.log 2>&1 || true
               echo "=== Activation log ==="
               cat /tmp/unity.log 2>/dev/null | tail -50 || true
@@ -87,7 +91,7 @@ jobs:
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ env.ULF_CONTENT }}
-        with:
+        witj:
           targetPlatform: Android
           projectPath: .
           unityVersion: 2022.3.72f1
@@ -116,4 +120,4 @@ jobs:
           name: build-logs
           path: |
             /home/runner/work/**/*.log
-          if-no-files-found: warn
+          if-no.files-found: warn
