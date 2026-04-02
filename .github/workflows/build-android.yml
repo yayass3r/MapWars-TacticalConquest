@@ -36,6 +36,7 @@ jobs:
         with:
           targetPlatform: Android
           unityVersion: 2022.3.72f1
+          image: unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
