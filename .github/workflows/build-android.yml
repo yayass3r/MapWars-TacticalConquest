@@ -32,14 +32,18 @@ jobs:
             unity-lib-
 
       - name: Activate Unity License
-        uses: game-ci/unity-activate@v2
-        with:
-          targetPlatform: Android
-          unityVersion: 2022.3.72f1
-          image: unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: |
+          docker pull unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
+          docker run --rm \
+            -e UNITY_EMAIL="${{ secrets.UNITY_EMAIL }}" \
+            -e UNITY_PASSWORD="${{ secrets.UNITY_PASSWORD }}" \
+            unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
+            /opt/Unity/Editor/Unity -batchmode -nographics -quit -logFile - \
+            -username "$UNITY_EMAIL" -password "$UNITY_PASSWORD" 2>&1 || true
+          # Find and save the license
+          docker run --rm -v $HOME:/output unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
+            bash -c 'cp -r /root/.local/share/unity3d/Unity /output/.local_share_unity3d 2>/dev/null || true; find /root/.config -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true; find / -name "*.ulf" -not -path "/proc/*" -not -path "/sys/*" 2>/dev/null | head -5'
+          echo "License activation attempted"
 
       - name: Build Unity Project
         uses: game-ci/unity-builder@v4
@@ -49,6 +53,9 @@ jobs:
           unityVersion: 2022.3.72f1
           buildMethod: MapWars.Editor.BuildScript.BuildAndroid
           customParameters: -developmentMode false -exportPath build/
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
