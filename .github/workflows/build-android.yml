@@ -34,28 +34,43 @@ jobs:
       - name: Activate Unity License
         run: |
           docker pull unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
+          mkdir -p /tmp/unity-license
           docker run --rm \
             -e UNITY_EMAIL="${{ secrets.UNITY_EMAIL }}" \
             -e UNITY_PASSWORD="${{ secrets.UNITY_PASSWORD }}" \
+            -v /tmp/unity-license:/license \
             unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
-            /opt/Unity/Editor/Unity -batchmode -nographics -quit -logFile - \
-            -username "$UNITY_EMAIL" -password "$UNITY_PASSWORD" 2>&1 || true
-          # Find and save the license
-          docker run --rm -v $HOME:/output unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
-            bash -c 'cp -r /root/.local/share/unity3d/Unity /output/.local_share_unity3d 2>/dev/null || true; find /root/.config -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true; find / -name "*.ulf" -not -path "/proc/*" -not -path "/sys/*" 2>/dev/null | head -5'
-          echo "License activation attempted"
+            bash -c '
+              UNITY=$(find / -name "Unity" -type f -executable 2>/dev/null | grep -E "Editor/Unity$" | head -1)
+              echo "Unity path: $UNITY"
+              if [ -z "$UNITY" ]; then
+                echo "ERROR: Unity executable not found"
+                exit 1
+              fi
+              "$UNITY" -batchmode -nographics -quit \
+                -username "$UNITY_EMAIL" -password "$UNITY_PASSWORD" \
+                -logFile /dev/stdout 2>&1 || true
+              echo "=== Looking for license files ==="
+              find /root/.local/share/unity3d -name "*.ulf" 2>/dev/null
+              find /root/.config/unity3d -name "*.ulf" 2>/dev/null
+              # Copy all license-related files
+              cp -r /root/.local/share/unity3d/ /license/ 2>/dev/null || true
+              cp -r /root/.config/unity3d/ /license/ 2>/dev/null || true
+              find /root -name "*.ulf" -exec cp {} /license/ 2>/dev/null || true
+              ls -laR /license/ 2>/dev/null
+              echo "=== Done ==="
+            '
 
       - name: Build Unity Project
         uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           targetPlatform: Android
           projectPath: .
           unityVersion: 2022.3.72f1
           buildMethod: MapWars.Editor.BuildScript.BuildAndroid
           customParameters: -developmentMode false -exportPath build/
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
