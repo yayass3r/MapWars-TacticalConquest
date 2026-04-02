@@ -1,17 +1,5 @@
 name: Generate Unity Activation Request
 
-# Use this workflow to generate an activation request file (.alf) for manual license activation.
-# Steps:
-# 1. Run this workflow
-# 2. Download the 'Unity_v2.x.alf' artifact
-# 3. Visit https://license.unity3d.com/manual
-# 4. Upload the .alf file
-# 5. Log in with your Unity account (with 2FA)
-# 6. Select "Unity Personal" and download the .ulf license file
-# 7. Go to repo Settings > Secrets and variables > Actions
-# 8. Update the 'UNITY_LICENSE' secret with the .ulf file contents
-# 9. Run the "Build Android APK" workflow
-
 on:
   workflow_dispatch:
 
@@ -19,36 +7,47 @@ jobs:
   generate-alf:
     name: Generate Activation File
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
-      - name: Get Unity Activation File
+      - name: Generate Unity ALF File
         run: |
-          # Pull the Unity base image
-          docker pull unityci/editor:ubuntu-2022.3.72f1-base-3
+          # Use the android image which has the full Unity Editor
+          docker pull unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
           
-          # Generate the activation request file
-          docker run --rm unityci/editor:ubuntu-2022.3.72f1-base-3 \
-            /opt/Unity/Editor/Unity \
-            -batchmode \
-            -nographics \
-            -createManualActivationFile \
-            -logFile /dev/stdout \
-            -quit || true
-          
-          # Find and copy the .alf file
-          find / -name "*.alf" -not -path "/proc/*" -not -path "/sys/*" 2>/dev/null | head -5
-          ALF_FILE=$(find / -name "*.alf" -not -path "/proc/*" -not -path "/sys/*" 2>/dev/null | head -1)
-          
-          if [ -n "$ALF_FILE" ]; then
-            echo "Found ALF file: $ALF_FILE"
-            cp "$ALF_FILE" /tmp/Unity_v2.alf
-            echo "ALF_FILE=/tmp/Unity_v2.alf" >> $GITHUB_ENV
-          else
-            echo "No .alf file found. Trying alternative method..."
-            # Alternative: create minimal alf from Unity
-            docker run --rm -v /tmp:/output unityci/editor:ubuntu-2022.3.72f1-base-3 \
-              bash -c "/opt/Unity/Editor/Unity -batchmode -nographics -createManualActivationFile -logFile /dev/stdout -quit 2>&1 || true; find / -name '*.alf' -exec cp {} /output/Unity_v2.alf \;"
+          # Create the activation request file inside the container
+          docker run --rm -v /tmp:/output unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
+            bash -c '
+              # Find Unity executable
+              UNITY=$(find / -name "Unity" -type f -executable 2>/dev/null | grep -E "Editor/Unity$" | head -1)
+              echo "Unity path: $UNITY"
+              
+              if [ -n "$UNITY" ]; then
+                # Create manual activation file
+                "$UNITY" -batchmode -nographics -createManualActivationFile -logFile /dev/stdout -quit 2>&1 || true
+                
+                # Find and copy the ALF file
+                ALF=$(find / -name "*.alf" -not -path "/proc/*" -not -path "/sys/*" 2>/dev/null | head -1)
+                if [ -n "$ALF" ]; then
+                  echo "Found ALF: $ALF"
+                  cat "$ALF"
+                  cp "$ALF" /output/Unity_v2.alf
+                  echo "ALF copied to /output/Unity_v2.alf"
+                else
+                  echo "No ALF file generated"
+                fi
+              else
+                echo "Unity executable not found"
+                ls -la /opt/ 2>/dev/null || true
+              fi
+            '
+
+      - name: Check for ALF File
+        run: |
+          ls -la /tmp/Unity_v2.alf 2>/dev/null || echo "ALF not found"
+          if [ -f /tmp/Unity_v2.alf ]; then
+            echo "=== ALF File Contents ==="
+            cat /tmp/Unity_v2.alf
           fi
 
       - name: Upload Activation File
