@@ -3,8 +3,8 @@ name: Build Android APK
 on:
   push:
     branches: [ main, develop ]
-    tags: ['v*']
-  pull_request:
+    tags: [-v']
+   pull_request:
     branches: [ main ]
   workflow_dispatch:
 
@@ -25,7 +25,7 @@ jobs:
 
       - name: Cache Unity Library
         uses: actions/cache@v4
-        witj:
+        with:
           path: Library
           key: unity-lib-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
@@ -39,8 +39,8 @@ jobs:
           docker pull unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
           mkdir -p /tmp/unity-lic
           docker run --rm \
-            -e UNITY_EMAIL \
-            -e UNITY_PASSWORD \
+            -e UNITY_EMAIL\
+            -e UNITY_PASSWORD\
             -v /tmp/unity-lic:/output \
             unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
             bash -c '
@@ -56,8 +56,8 @@ jobs:
                 exit 1
               fi
               
-              # URL-encode password for API compatibility
-              ENCODED_PASS=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$UNITY_PASSWORD', safe=''))")
+              # URL-encode password using Python (reads env var directly)
+              ENCODED_PASS=$(python3 -c "import urllib.parse,os; print(urllib.parse.quote(os.environ['UNITY_PASSWORD'], safe=''))"))
               echo "Encoded password length: ${#ENCODED_PASS}"
               
               # Activate with CLI args
@@ -73,7 +73,7 @@ jobs:
               cp -r /root/.cache/unity3d /output/cache 2>/dev/null || true
               find /root -name "*.ulf" -exec cp {} /output/ 2>/dev/null || true
               find /output -type f 2>/dev/null | head -20
-            '
+            ''
           echo "=== Host files ==="
           find /tmp/unity-lic -type f 2>/dev/null | head -20
           # Check for ULF
@@ -91,7 +91,7 @@ jobs:
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ env.ULF_CONTENT }}
-        witj:
+        with:
           targetPlatform: Android
           projectPath: .
           unityVersion: 2022.3.72f1
@@ -120,4 +120,4 @@ jobs:
           name: build-logs
           path: |
             /home/runner/work/**/*.log
-          if-no.files-found: warn
+          if-no-files-found: warn
