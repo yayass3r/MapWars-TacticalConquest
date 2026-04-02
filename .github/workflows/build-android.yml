@@ -25,7 +25,7 @@ jobs:
 
       - name: Cache Unity Library
         uses: actions/cache@v4
-        witj:
+        with:
           path: Library
           key: unity-lib-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
