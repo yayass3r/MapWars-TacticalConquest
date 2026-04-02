@@ -1,0 +1,61 @@
+name: Request Unity License
+
+# This workflow helps you obtain a Unity license for CI/CD.
+# For Personal accounts with 2FA:
+#   1. Run this workflow (Actions tab > "Request Unity License" > "Run workflow")
+#   2. Download the 'activation-request.alf' artifact
+#   3. Visit https://license.unity3d.com/manual and upload the .alf file
+#   4. Log in with your Unity account (complete 2FA if needed)
+#   5. Select "Unity Personal" edition and download the .ulf license file
+#   6. Go to repo Settings > Secrets and variables > Actions
+#   7. Add a new secret called UNITY_LICENSE with the full contents of the .ulf file
+#   8. Run the "Build Android APK" workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      unityVersion:
+        description: 'Unity version (e.g. 2022.3.20f1)'
+        required: false
+        default: '2022.3.20f1'
+
+jobs:
+  request-license:
+    name: Request Unity License File
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Request Unity License
+        uses: game-ci/unity-request-license@v2
+        id: requestLicense
+        with:
+          unityVersion: ${{ github.event.inputs.unityVersion || '2022.3.20f1' }}
+          licenseType: personal
+
+      - name: Upload Activation File
+        uses: actions/upload-artifact@v4
+        with:
+          name: activation-request
+          path: ${{ steps.requestLicense.outputs.filePath }}
+          retention-days: 7
+
+      - name: Print Instructions
+        run: |
+          echo "============================================"
+          echo "  UNITY LICENSE ACTIVATION INSTRUCTIONS"
+          echo "============================================"
+          echo ""
+          echo "Step 1: Download the 'activation-request' artifact from this workflow run"
+          echo "Step 2: Visit https://license.unity3d.com/manual"
+          echo "Step 3: Upload the .alf file you downloaded"
+          echo "Step 4: Log in with your Unity account (complete 2FA if prompted)"
+          echo "Step 5: Select 'Unity Personal' and download the license (.ulf) file"
+          echo "Step 6: Go to your repo Settings > Secrets and variables > Actions"
+          echo "Step 7: Create a secret named 'UNITY_LICENSE' with the .ulf file contents"
+          echo "Step 8: Run the 'Build Android APK' workflow"
+          echo ""
+          echo "============================================"

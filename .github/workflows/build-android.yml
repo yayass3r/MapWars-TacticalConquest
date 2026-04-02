@@ -6,15 +6,22 @@ on:
     tags: ['v*']
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      unityVersion:
+        description: 'Unity version (e.g. 2022.3.20f1)'
+        required: false
+        default: '2022.3.20f1'
 
 env:
-  UNITY_VERSION: 2022.3.20f1
+  UNITY_VERSION: ${{ github.event.inputs.unityVersion || '2022.3.20f1' }}
   PROJECT_PATH: .
 
 jobs:
   build-android:
     name: Build Android APK
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: write
       checks: write
@@ -29,8 +36,15 @@ jobs:
         uses: actions/cache@v4
         with:
           path: Library
-          key: unity-library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: unity-library-
+          key: unity-library-${{ env.UNITY_VERSION }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            unity-library-${{ env.UNITY_VERSION }}-
+            unity-library-
+
+      - name: Activate Unity License
+        uses: game-ci/unity-activate@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
       - name: Build Unity Project
         uses: game-ci/unity-builder@v4
@@ -39,6 +53,7 @@ jobs:
         with:
           targetPlatform: Android
           projectPath: ${{ env.PROJECT_PATH }}
+          unityVersion: ${{ env.UNITY_VERSION }}
           buildMethod: MapWars.Editor.BuildScript.BuildAndroid
           customParameters: -developmentMode false -exportPath build/
 
