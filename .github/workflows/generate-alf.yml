@@ -12,25 +12,16 @@ jobs:
     steps:
       - name: Generate Unity ALF File
         run: |
-          # Use the android image which has the full Unity Editor
           docker pull unityci/editor:ubuntu-2022.3.72f1-android-3.2.1
-          
-          # Create the activation request file inside the container
           docker run --rm -v /tmp:/output unityci/editor:ubuntu-2022.3.72f1-android-3.2.1 \
             bash -c '
-              # Find Unity executable
               UNITY=$(find / -name "Unity" -type f -executable 2>/dev/null | grep -E "Editor/Unity$" | head -1)
               echo "Unity path: $UNITY"
-              
               if [ -n "$UNITY" ]; then
-                # Create manual activation file
                 "$UNITY" -batchmode -nographics -createManualActivationFile -logFile /dev/stdout -quit 2>&1 || true
-                
-                # Find and copy the ALF file
                 ALF=$(find / -name "*.alf" -not -path "/proc/*" -not -path "/sys/*" 2>/dev/null | head -1)
                 if [ -n "$ALF" ]; then
                   echo "Found ALF: $ALF"
-                  cat "$ALF"
                   cp "$ALF" /output/Unity_v2.alf
                   echo "ALF copied to /output/Unity_v2.alf"
                 else
@@ -38,7 +29,6 @@ jobs:
                 fi
               else
                 echo "Unity executable not found"
-                ls -la /opt/ 2>/dev/null || true
               fi
             '
 
